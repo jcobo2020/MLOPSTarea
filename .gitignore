@@ -186,6 +186,7 @@ cython_debug/
 .ionide
 
 data/
+train_models/
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/jupyternotebooks,python,visualstudiocode
