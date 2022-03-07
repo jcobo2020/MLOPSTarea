@@ -1,5 +1,9 @@
 import pandas as pd
 from datetime import datetime, date
+from storage import Storage 
+
+storage = Storage()
+storage.download()
 
 df = pd.read_csv('../data/input/dataset_credit_risk.csv')
 df = df.sort_values(by=["id", "loan_date"])
@@ -19,3 +23,5 @@ df['years_on_the_job'] = (pd.to_datetime('today').normalize() - df['job_start_da
 df['flag_own_car'] = df.flag_own_car.apply(lambda x : 0 if x == 'N' else 1)
 df = df[['id', 'age', 'years_on_the_job', 'nb_previous_loans', 'avg_amount_loans_previous', 'flag_own_car', 'status']]
 df.to_csv('../data/output/train_model.csv', index=False)
+
+#storage.upload()

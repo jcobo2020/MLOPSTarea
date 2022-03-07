@@ -1,7 +1,10 @@
 FROM python:3.9.10-slim-bullseye
-RUN mkdir /src/
-COPY  ./requirements.txt /src/requirements.txt 
-WORKDIR /src/
+RUN mkdir -p /app/src
+RUN mkdir -p /app/data/input
+RUN mkdir -p /app/data/output
+RUN mkdir -p /app/train_models
+WORKDIR /app/src/
+COPY  ./requirements.txt /app/src/requirements.txt 
 RUN pip install -r requirements.txt
-COPY  ./*.py /src/
+COPY  ./*.py /app/src/
 ENTRYPOINT [ "python" ] 
