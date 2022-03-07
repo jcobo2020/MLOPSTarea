@@ -28,6 +28,9 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
@@ -37,3 +40,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: 'docker run --rm $(containerRegistry)/$(imageRepository):$(tag) feafure_engineering.py'
