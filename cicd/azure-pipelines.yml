@@ -43,4 +43,4 @@ stages:
     - task: Bash@3
       inputs:
         targetType: 'inline'
-        script: 'docker run --rm $(imageRepository):$(tag) feature_engineering.py'
+        script: 'docker run --rm $(containerRegistry)/$(imageRepository):$(tag) feature_engineering.py'
