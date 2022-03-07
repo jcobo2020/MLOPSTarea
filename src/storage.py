@@ -14,16 +14,22 @@ class Storage:
     def __init__(self):
         self.blob_service_client_instance = BlobServiceClient(
             account_url=STORAGEACCOUNTURL, credential=STORAGEACCOUNTKEY)
-        self.blob_client_instance = self.blob_service_client_instance.get_blob_client(
-            CONTAINERNAME, BLOBNAME, snapshot=None)
+        #self.blob_client_instance = self.blob_service_client_instance.get_blob_client(
+        #    CONTAINERNAME, BLOBNAME, snapshot=None)
 
-    def download(self):
-
-        with open("../data/input/dataset_credit_risk.csv", "wb") as my_blob:
-            blob_data = self.blob_client_instance.download_blob()
+    def download(self,url,blobname):
+        #url = "../data/input/dataset_credit_risk.csv"
+        blob_client_instance = self.blob_service_client_instance.get_blob_client(
+            CONTAINERNAME, blobname, snapshot=None)
+        with open(url, "wb") as my_blob:
+            blob_data = blob_client_instance.download_blob()
             blob_data.readinto(my_blob)
 
 
-    def upload(self):
-        pass
+    def upload(self,url,blobname):
+        blob_client_instance = self.blob_service_client_instance.get_blob_client(
+            CONTAINERNAME, blobname, snapshot=None)
+        with open(url, "rb") as data:
+            blob_client_instance.upload_blob(data,overwrite=True)
+            pass
         #subir los datos en output y el modelo modelo entrenado

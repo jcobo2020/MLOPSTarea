@@ -11,6 +11,11 @@ from sklearn.metrics import (
 from sklearn.ensemble import RandomForestClassifier
 from joblib import dump
 
+from storage import Storage 
+
+storage = Storage()
+storage.download("../data/output/train_model.csv","output/train_model.csv")
+
 df = pd.read_csv('../data/output/train_model.csv')
 cust_df = df.copy()
 cust_df.fillna(0, inplace=True)
@@ -25,6 +30,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, Y,
                                                     random_state = 123)
 # Using Synthetic Minority Over-Sampling Technique(SMOTE) to overcome sample imbalance problem.
 #Y = Y.astype('int')
+
 X_train, y_train = SMOTE().fit_resample(X_train, y_train)
 X_train = pd.DataFrame(X_train, columns=X.columns)
 model = RandomForestClassifier(n_estimators=5)
@@ -42,3 +48,4 @@ plot_roc_curve(model, X_test, y_test)
 
 dump(model, '../train_models/model_risk.joblib') 
 
+storage.upload('../train_models/model_risk.joblib','train_models/model_risk.joblib')
