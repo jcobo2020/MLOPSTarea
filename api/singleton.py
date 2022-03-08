@@ -1,6 +1,5 @@
 import joblib
-import os
-
+import pandas as pd
 
 class Singleton:
     def __new__(cls):
@@ -11,4 +10,5 @@ class Singleton:
 
 singleton = Singleton()
 
-singleton.reporter = joblib.load(open("../train_models/model_risk.joblib", "rb"))
+singleton.modelo = joblib.load(open("../train_models/model_risk.joblib", "rb"))
+singleton.model_train = pd.read_csv('../data/output/train_model.csv')
