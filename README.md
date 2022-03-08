@@ -32,6 +32,11 @@ https://sa-prediccion-riesgo-lab.azurewebsites.net/api/user/5008806/prediccion
 
 {"resultado": [0]}
 
+## Componentes en Azure
+**Azure DevOps:** Servicio para administrar el ciclo de vida del desarrollo de un extremo a otro.
+**Blob Storage :** Almacenar la información de los csv y el modelo entrenado.
+**Registro de contenedor:** Almacenar las imagenes de los contenedores.
+**App Service (Web App for Containers):** Es un servicio PaaS para hospedar aplicaciones web, API REST basado en un contenedor.
 
 
 ## Mejoras 
