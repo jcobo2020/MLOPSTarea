@@ -31,3 +31,10 @@ https://sa-prediccion-riesgo-lab.azurewebsites.net/api/user/5008806/caracteristi
 https://sa-prediccion-riesgo-lab.azurewebsites.net/api/user/5008806/prediccion
 
 {"resultado": [0]}
+
+
+
+## Mejoras 
+- La información que se genera del train_model.csv se pudo almacenar en una base NOSQL.
+- Usar una base como auditoria para almacenar la información de las ejecuciones.
+- Aplicar mas validaciones en caso de que el User Id no exista.
