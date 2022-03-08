@@ -4,10 +4,12 @@ import pandas as pd
 from joblib import  load
 import json
 import requests
-
+from singleton import singleton
 
 app = Flask(__name__)
 api = Api(app)
+
+
 
 class CaracteristicasRiesgo(Resource):
     def get(self, user_id):
@@ -24,16 +26,15 @@ class CaracteristicasRiesgo(Resource):
 
 class Prediccion(Resource):
     def post(self, user_id):
+       
 
-        my_model = load('../train_models/model_risk.joblib') 
-
-        url = 'http://127.0.0.1:5000/api/user/' + user_id + '/caracteristicasriesgo'
+        url = 'http://127.0.0.1:5001/api/user/' + user_id + '/caracteristicasriesgo'
         r = requests.get(url)
         camposresult = r.json()
         
         d = {str(user_id): [camposresult['nb_previous_loans'], camposresult['avg_amount_loans_previous'], camposresult['age'],camposresult['years_on_the_job'],camposresult['flag_own_car']]}
         
-        resultado = my_model.predict([d[user_id]])
+        resultado = singleton.reporter.predict([d[user_id]])
         
         lists = resultado.tolist()
         json_str = json.dumps(lists)
@@ -42,5 +43,6 @@ class Prediccion(Resource):
 
 api.add_resource(CaracteristicasRiesgo, '/api/user/<string:user_id>/caracteristicasriesgo')
 api.add_resource(Prediccion, '/api/user/<string:user_id>/prediccion')
-if __name__ == '__main__':
-    app.run(debug=False)
+
+if __name__ == '__main__': 
+    app.run(debug=False, host='0.0.0.0', port=5001)

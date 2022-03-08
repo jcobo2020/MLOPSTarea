@@ -5,5 +5,7 @@ RUN mkdir -p /app/train_models
 WORKDIR /app/api/
 COPY  ./requirements.txt /app/api/requirements.txt 
 RUN pip install -r requirements.txt
-COPY  ./*.py /app/api/
-ENTRYPOINT [ "python" ] 
+COPY  . . 
+RUN chmod +x /app/api/start.sh
+EXPOSE 5001
+CMD ["/app/api/start.sh"]
