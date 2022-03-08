@@ -58,3 +58,9 @@ stages:
       inputs:
         targetType: 'inline'
         script: 'docker run --rm -e CONTAINER_NAME=$(CONTAINER_NAME)  -e STORAGE_ACCOUNT_KEY=$(STORAGE_ACCOUNT_KEY) -e STORAGE_ACCOUNT_URL=$(STORAGE_ACCOUNT_URL)  $(containerRegistry)/$(imageRepository):$(tag) training_model.py'
+    - task: AzureWebAppContainer@1
+      displayName: Container Image Docker en Api
+      inputs:
+        azureSubscription: 'Viamatica'
+        appName: 'sa-prediccion-riesgo-lab'
+        containers: '$(containerRegistry)/prediccionriesgoapi:$(tag)'
